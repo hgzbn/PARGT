@@ -4,12 +4,6 @@
 image and other regions, resulting in clearer and more coherent generated details. Specifically, we introduce the Parallel Local Self-attention (PL-SA) module, which enhances local features by parallelizing the Shift Window Pixel Attention Module (SWPAM) and Channel-Spatial Shuffle Attention Module(CSSAM). In addition, we introduce a new type of feed-forward network called Spatial Fusion Convolution Feed-forward Network (SFCFFN) for multi-scale information fusion. Finally, we optimize the reconstruction of high-frequency details by incorporating a Stationary Wavelet Transform (SWT). To the best of our knowledge, this is the first application of a parallel attention mechanism combined with a multi-scale feed-forward network for SR tasks. Experimental results on several challenging benchmark datasets demonstrate the superiority of our PARGT over state-of-the-art image SR models.The code will be available at https://github.com/hgzbn/PARGT.
 
 ---
-
-|                     HR                     |                       LR                        | [SwinIR](https://github.com/JingyunLiang/SwinIR) | [CAT](https://github.com/zhengchen1999/CAT) |                 RGT (ours)                  |
-| :----------------------------------------: | :---------------------------------------------: | :----------------------------------------------: | :-----------------------------------------: | :-----------------------------------------: |
-| <img src="figs/img_1_HR_x4.png" height=80> | <img src="figs/img_1_Bicubic_x4.png" height=80> |  <img src="figs/img_1_SwinIR_x4.png" height=80>  | <img src="figs/img_1_CAT_x4.png" height=80> | <img src="figs/img_1_RGT_x4.png" height=80> |
-| <img src="figs/img_2_HR_x4.png" height=80> | <img src="figs/img_2_Bicubic_x4.png" height=80> |  <img src="figs/img_2_SwinIR_x4.png" height=80>  | <img src="figs/img_2_CAT_x4.png" height=80> | <img src="figs/img_2_RGT_x4.png" height=80> |
-
 ## ⚙️ Dependencies
 
 - Python 3.8
@@ -17,29 +11,14 @@ image and other regions, resulting in clearer and more coherent generated detail
 - NVIDIA GPU + [CUDA](https://developer.nvidia.com/cuda-downloads)
 
 ```bash
-# Clone the github repo and go to the default directory 'RGT'.
-git clone https://github.com/zhengchen1999/RGT.git
-conda create -n RGT python=3.8
-conda activate RGT
+# Clone the github repo and go to the default directory 'PARGT'.
+git clone [https://github.com/hgzbn/PARGT.git]
+conda create -n PARGT python=3.8
+conda activate PARGT
 pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
 python setup.py develop
 ```
 
-## ⚒️ TODO
-
-* [x] Release code and pretrained models
-
-## 🔗 Contents
-
-1. [Datasets](#datasets)
-1. [Models](#models)
-1. [Training](#training)
-1. [Testing](#testing)
-1. [Results](#results)
-1. [Citation](#citation)
-1. [Acknowledgements](#acknowledgements)
-
----
 
 ## <a name="datasets"></a>🖨️ Datasets
 
