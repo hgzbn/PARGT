@@ -1,19 +1,7 @@
-# Recursive Generalization Transformer for Image Super-Resolution
+# PARGT: Parallel Attention Recursive Generalization Transformer for Image Super-Resolution
 
-[Zheng Chen](https://zhengchen1999.github.io/), [Yulun Zhang](http://yulunzhang.com/), [Jinjin Gu](https://www.jasongt.com/), [Linghe Kong](https://www.cs.sjtu.edu.cn/~linghe.kong/), and [Xiaokang Yang](https://scholar.google.com/citations?user=yDEavdMAAAAJ), "Recursive Generalization Transformer for Image Super-Resolution", ICLR, 2024
-
-[[paper](https://openreview.net/pdf?id=owziuM1nsR)] [[arXiv](https://arxiv.org/abs/2303.06373)] [[supplementary material](https://openreview.net/attachment?id=owziuM1nsR&name=supplementary_material)] [[visual results](https://drive.google.com/drive/folders/1TWIl66LPtojEbnlUr-s7qkUuTd7RF7Hp?usp=sharing)] [[pretrained models](https://drive.google.com/drive/folders/1UNn5LvnfQAi6eHAHz-mTYWu8vCJs5kwu?usp=sharing)]
-
-#### 🔥🔥🔥 News
-
-- **2024-02-04:** Code and pre-trained models are released. 🎊🎊🎊
-- **2023-09-29:** This repo is released.
-
----
-
-> **Abstract:** Transformer architectures have exhibited remarkable performance in image superresolution (SR). Since the quadratic computational complexity of the selfattention (SA) in Transformer, existing methods tend to adopt SA in a local region to reduce overheads. However, the local design restricts the global context exploitation, which is crucial for accurate image reconstruction. In this work, we propose the Recursive Generalization Transformer (RGT) for image SR, which can capture global spatial information and is suitable for high-resolution images. Specifically, we propose the recursive-generalization self-attention (RG-SA). It recursively aggregates input features into representative feature maps, and then utilizes cross-attention to extract global information. Meanwhile, the channel dimensions of attention matrices ($query$, $key$, and $value$) are further scaled to mitigate the redundancy in the channel domain. Furthermore, we combine the RG-SA with local self-attention to enhance the exploitation of the global context, and propose the hybrid adaptive integration (HAI) for module integration. The HAI allows the direct and effective fusion between features at different levels (local or global). Extensive experiments demonstrate that our RGT outperforms recent state-of-the-art methods quantitatively and qualitatively.
-
-![](figs/RGT.png)
+> **Abstract:** Transformer architectures have demonstrated remarkable performance in image super-resolution (SR). However, existing Transformer-based models generally suffer from insufficient local feature modeling, weak feature representation capabilities, and unreasonable loss function design, especially when reconstructing high-resolution (HR) images, where the restoration of fine details is poor. To address these issues, we propose a novel SR model, Parallel Attention Recursive Generalization Transformer (PARGT) in this study, which can effectively capture the fine-grained interactions between local features of the
+image and other regions, resulting in clearer and more coherent generated details. Specifically, we introduce the Parallel Local Self-attention (PL-SA) module, which enhances local features by parallelizing the Shift Window Pixel Attention Module (SWPAM) and Channel-Spatial Shuffle Attention Module(CSSAM). In addition, we introduce a new type of feed-forward network called Spatial Fusion Convolution Feed-forward Network (SFCFFN) for multi-scale information fusion. Finally, we optimize the reconstruction of high-frequency details by incorporating a Stationary Wavelet Transform (SWT). To the best of our knowledge, this is the first application of a parallel attention mechanism combined with a multi-scale feed-forward network for SR tasks. Experimental results on several challenging benchmark datasets demonstrate the superiority of our PARGT over state-of-the-art image SR models.The code will be available at https://github.com/hgzbn/PARGT.
 
 ---
 
