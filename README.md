@@ -29,16 +29,6 @@ Used training and testing sets can be downloaded as follows:
 | [DIV2K](https://data.vision.ee.ethz.ch/cvl/DIV2K/) (800 training images, 100 validation images) +  [Flickr2K](https://cv.snu.ac.kr/research/EDSR/Flickr2K.tar) (2650 images) [complete training dataset DF2K: [Google Drive](https://drive.google.com/file/d/1TubDkirxl4qAWelfOnpwaSKoj3KLAIG4/view?usp=share_link) / [Baidu Disk](https://pan.baidu.com/s/1KIcPNz3qDsGSM0uDKl4DRw?pwd=74yc)] | Set5 + Set14 + BSD100 + Urban100 + Manga109 [complete testing dataset: [Google Drive](https://drive.google.com/file/d/1yMbItvFKVaCT93yPWmlP3883XtJ-wSee/view?usp=sharing) / [Baidu Disk](https://pan.baidu.com/s/1Tf8WT14vhlA49TO2lz3Y1Q?pwd=8xen)] | [Google Drive]() / [Baidu Disk](https://pan.baidu.com/s/10YeQAmkYI9lg2HnlzHBHxA?pwd=eb5i) |
 
 Download training and testing datasets and put them into the corresponding folders of `datasets/`. See [datasets](datasets/README.md) for the detail of the directory structure.
-
-## <a name="models"></a>📦 Models
-
-| Method | Params (M) | FLOPs (G) | PSNR (dB) |  SSIM  |                          Model Zoo                           |                        Visual Results                        |
-| :----- | :--------: | :-------: | :-------: | :----: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| RGT-S  |   10.20    |  193.08   |   27.89   | 0.8347 | [Google Drive](https://drive.google.com/drive/folders/1j46WHs1Gvyif1SsZXKy1Y1IrQH0gfIQ1?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1mDy8Kex_NVt_0w7sZWlwmA?pwd=ikap) | [Google Drive](https://drive.google.com/file/d/1qu4I3gkycMImXkhspCCSeH3ljiisKFit/view?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1B-RhTmr6xIsCeS1qNR6cOw?pwd=6ni9) |
-| RGT    |   13.37    |  251.07   |   27.98   | 0.8369 | [Google Drive](https://drive.google.com/drive/folders/1zxrr31Kp2D_N9a-OUAPaJEn_yTaSXTfZ?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1YgL5nOGjSlCA4rRFcub9zA?pwd=x9v3) | [Google Drive](https://drive.google.com/file/d/117nybIfj8UeepiiA0O0x7VeeteyHyLbh/view?usp=drive_link) / [Baidu Disk](https://pan.baidu.com/s/1j1YX_ZmzSPr80UF85YJWlQ?pwd=4htb) |
-
-The performance is reported on Urban100 (x4). Output size of FLOPs is 3×512×512.
-
 ## <a name="training"></a>🔧 Training
 
 - Download [training](https://drive.google.com/file/d/1TubDkirxl4qAWelfOnpwaSKoj3KLAIG4/view?usp=share_link) (DF2K, already processed) and [testing](https://drive.google.com/file/d/1yMbItvFKVaCT93yPWmlP3883XtJ-wSee/view?usp=sharing) (Set5, Set14, BSD100, Urban100, Manga109, already processed) datasets, place them in `datasets/`.
@@ -46,12 +36,12 @@ The performance is reported on Urban100 (x4). Output size of FLOPs is 3×512×51
 - Run the following scripts. The training configuration is in `options/train/`.
 
   ```shell
-  # RGT-S, input=64x64, 4 GPUs
+  # PARGT-S, input=64x64, 4 GPUs
   python -m torch.distributed.launch --nproc_per_node=1 --master_port=4321 basicsr/train.py -opt options/train/train_RGT_S_x2.yml --launcher pytorch
   python -m torch.distributed.launch --nproc_per_node=4 --master_port=4321 basicsr/train.py -opt options/train/train_RGT_S_x3.yml --launcher pytorch
   python -m torch.distributed.launch --nproc_per_node=4 --master_port=4321 basicsr/train.py -opt options/train/train_RGT_S_x4.yml --launcher pytorch
   
-  # RGT, input=64x64, 4 GPUs
+  # PARGT, input=64x64, 4 GPUs
   python -m torch.distributed.launch --nproc_per_node=4 --master_port=4321 basicsr/train.py -opt options/train/train_RGT_x2.yml --launcher pytorch
   python -m torch.distributed.launch --nproc_per_node=4 --master_port=4321 basicsr/train.py -opt options/train/train_RGT_x3.yml --launcher pytorch
   python -m torch.distributed.launch --nproc_per_node=4 --master_port=4321 basicsr/train.py -opt options/train/train_RGT_x4.yml --launcher pytorch
@@ -65,7 +55,7 @@ The performance is reported on Urban100 (x4). Output size of FLOPs is 3×512×51
 
 - Download the pre-trained [models](https://drive.google.com/drive/folders/1UNn5LvnfQAi6eHAHz-mTYWu8vCJs5kwu?usp=sharing) and place them in `experiments/pretrained_models/`.
 
-  We provide pre-trained models for image SR: RGT-S and RGT (x2, x3, x4).
+  We provide pre-trained models for image SR: PARGT-S and PARGT (x2, x3, x4).
 
 - Download [testing](https://drive.google.com/file/d/1yMbItvFKVaCT93yPWmlP3883XtJ-wSee/view?usp=sharing) (Set5, Set14, BSD100, Urban100, Manga109) datasets, place them in `datasets/`.
 
@@ -75,12 +65,12 @@ The performance is reported on Urban100 (x4). Output size of FLOPs is 3×512×51
 
   ```shell
   # No self-ensemble
-  # RGT-S, reproduces results in Table 2 of the main paper
+  # PARGT-S, reproduces results in Table 2 of the main paper
   python basicsr/test.py -opt options/test/test_RGT_S_x2.yml
   python basicsr/test.py -opt options/test/test_RGT_S_x3.yml
   python basicsr/test.py -opt options/test/test_RGT_S_x4.yml
   
-  # RGT, reproduces results in Table 2 of the main paper
+  # PARGT, reproduces results in Table 2 of the main paper
   python basicsr/test.py -opt options/test/test_RGT_x2.yml
   python basicsr/test.py -opt options/test/test_RGT_x3.yml
   python basicsr/test.py -opt options/test/test_RGT_x4.yml
@@ -92,7 +82,7 @@ The performance is reported on Urban100 (x4). Output size of FLOPs is 3×512×51
 
 - Download the pre-trained [models](https://drive.google.com/drive/folders/1UNn5LvnfQAi6eHAHz-mTYWu8vCJs5kwu?usp=sharing) and place them in `experiments/pretrained_models/`.
 
-  We provide pre-trained models for image SR: RGT-S and RGT (x2, x3, x4).
+  We provide pre-trained models for image SR: PARGT-S and PARGT (x2, x3, x4).
 
 - Put your dataset (single LR images) in `datasets/single`. Some test images are in this folder.
 
@@ -114,63 +104,6 @@ The performance is reported on Urban100 (x4). Output size of FLOPs is 3×512×51
 ## <a name="results"></a>🔎 Results
 
 We achieved state-of-the-art performance on synthetic and real-world blur dataset. Detailed results can be found in the paper.
-
-<details>
-<summary>Quantitative Comparison (click to expand)</summary>
-
-
-
-- results in Table 2 of the main paper
-
-<p align="center">
-  <img width="900" src="figs/T1.png">
-</p>
-
-</details>
-
-<details>
-<summary>Visual Comparison (click to expand)</summary>
-
-
-
-
-
-- results in Figure 6 of the main paper
-
-<p align="center">
-  <img width="900" src="figs/F1.png">
-</p>
-
-
-
-- results in Figure 4 of the supplementary material
-
-<p align="center">
-  <img width="900" src="figs/F2.png">
-</p>
-
-
-
-- results in Figure 5 of the supplementary material
-
-<p align="center">
-  <img width="900" src="figs/F3.png">
-</p>
-
-</details>
-
-## <a name="citation"></a>📎 Citation
-
-If you find the code helpful in your resarch or work, please cite the following paper(s).
-
-```
-@inproceedings{chen2024recursive,
-  title={Recursive Generalization Transformer for Image Super-Resolution},
-  author={Chen, Zheng and Zhang, Yulun and Gu, Jinjin and Kong, Linghe and Yang, Xiaokang},
-  booktitle={ICLR},
-  year={2024}
-}
-```
 
 ## <a name="acknowledgements"></a>💡 Acknowledgements
 
